@@ -1,6 +1,6 @@
 package Rafael.projeto_crud_clientes.service;
 
-import Rafael.projeto_crud_clientes.entity.Users;
+import Rafael.projeto_crud_clientes.entity.User.Users;
 import Rafael.projeto_crud_clientes.exceptions.UsernameNotFound;
 import Rafael.projeto_crud_clientes.repository.UsersRepositiry;
 import org.springframework.stereotype.Service;
@@ -17,16 +17,14 @@ public class UsersService {
         repositiry.saveAndFlush(user);
     }
 
-    public Users findById(long id) {
+    public Users findById(Integer id) {
         Users user = repositiry.findById(id).orElseThrow(UsernameNotFound::new);
 
         return user;
     }
 
-    public void updateUser(long id, Users user) {
-        Users userTemp = repositiry.findById(id).orElseThrow(
-                () -> new RuntimeException("Id invalido")
-        );
+    public void updateUser(Integer id, Users user) {
+        Users userTemp = repositiry.findById(id).orElseThrow(UsernameNotFound::new);
 
         Users userUpdate = Users.builder()
                 .username(user.getUsername() != null ? user.getUsername() : userTemp.getUsername())
@@ -37,11 +35,8 @@ public class UsersService {
         repositiry.saveAndFlush(userUpdate);
     }
 
-    public void deleteUserById(long id) {
+    public void deleteUserById(Integer id) {
         repositiry.deleteById(id);
     }
 
-    public void deleteById(long id) {
-
-    }
 }
