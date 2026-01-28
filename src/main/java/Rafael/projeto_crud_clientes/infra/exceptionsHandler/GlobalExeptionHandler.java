@@ -1,4 +1,4 @@
-package Rafael.projeto_crud_clientes.infra;
+package Rafael.projeto_crud_clientes.infra.exceptionsHandler;
 
 import Rafael.projeto_crud_clientes.exceptions.UsernameNotFound;
 import org.springframework.http.HttpStatus;
