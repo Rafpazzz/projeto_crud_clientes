@@ -39,6 +39,12 @@ public class Users implements UserDetails {
     @Column(name = "role", nullable = false)
     private UserRole role;
 
+    public Users (String email, String password, UserRole role) {
+        this.email = email;
+        this.password = password;
+        this.role = role;
+    }
+
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
