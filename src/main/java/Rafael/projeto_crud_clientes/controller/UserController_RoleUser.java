@@ -1,11 +1,20 @@
 package Rafael.projeto_crud_clientes.controller;
 
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import Rafael.projeto_crud_clientes.entity.User.Users;
+import Rafael.projeto_crud_clientes.service.UsersService;
+import lombok.RequiredArgsConstructor;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/cadastro")
-@requiredArgsConstructor
+@RequiredArgsConstructor
 public class UserController_RoleUser {
-    
+    private final UsersService usersService;
+
+    @PutMapping("/credenciais")
+    public ResponseEntity<Void> atualizarCadastro(@RequestParam Integer id, @RequestBody Users user) {
+        usersService.updateUser(id, user);
+        return ResponseEntity.ok().build();
+    }
 }
