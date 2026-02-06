@@ -57,4 +57,15 @@ public class ProductService {
         return List.of();
     }
 
+
+    public void deleteById(Integer id) {
+        Products product = repository.findAll().get(id);
+
+        if(product == null) {
+            new IdNotFound().getMessage();
+        }else {
+            repository.deleteById(id);
+        }
+    }
+
 }

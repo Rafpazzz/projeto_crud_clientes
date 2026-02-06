@@ -29,9 +29,10 @@ public class SecurityFilter extends OncePerRequestFilter {
         if(token != null) {
             var subject = tokenService.validateToken(token);
             UserDetails user = usersRepositiry.findByEmail(subject);
-
-            var authentication = new UsernamePasswordAuthenticationToken(user, null, user.getAuthorities());
-            SecurityContextHolder.getContext().setAuthentication(authentication);
+            if(user != null ) {
+                var authentication = new UsernamePasswordAuthenticationToken(user, null, user.getAuthorities());
+                SecurityContextHolder.getContext().setAuthentication(authentication);
+            }
         }
         filterChain.doFilter(request, response);
     }
@@ -39,6 +40,6 @@ public class SecurityFilter extends OncePerRequestFilter {
     private String recoverToken(HttpServletRequest servletRequest) {
         var authHeader = servletRequest.getHeader("Authorization");
         if (authHeader == null) return null;
-        return authHeader.replace("Berer", "");
+        return authHeader.replace("Bearer ", "");
     }
 }

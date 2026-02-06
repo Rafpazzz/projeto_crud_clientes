@@ -4,7 +4,10 @@ import Rafael.projeto_crud_clientes.entity.User.Users;
 import Rafael.projeto_crud_clientes.service.UsersService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/users")
@@ -15,13 +18,21 @@ public class UsersController {
 
     @PostMapping("/save-user")
     public ResponseEntity<Void> saveUser(@RequestBody Users user) {
-        usersService.saveUser(user);
+        String encryptedPassword = new BCryptPasswordEncoder().encode(user.getPassword());
+        Users newUser = user;
+        newUser.setPassword(encryptedPassword);
+        usersService.saveUser(newUser);
         return ResponseEntity.ok().build();
     }
 
     @GetMapping("/find-User-id")
-    public ResponseEntity<Users> findUserId(@RequestParam Integer indent) {
-        return ResponseEntity.ok(usersService.findById(indent));
+    public ResponseEntity<Users> findUserId(@RequestParam Integer id) {
+        return ResponseEntity.ok(usersService.findById(id));
+    }
+
+    @GetMapping("/find_all_users")
+    public ResponseEntity<List<Users>> findAllUsers() {
+        return ResponseEntity.ok(usersService.findAllUsers());
     }
 
     @PutMapping("/update-user")

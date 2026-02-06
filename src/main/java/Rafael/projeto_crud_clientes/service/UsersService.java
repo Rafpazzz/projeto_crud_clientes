@@ -5,6 +5,8 @@ import Rafael.projeto_crud_clientes.exceptions.UsernameNotFound;
 import Rafael.projeto_crud_clientes.repository.UsersRepositiry;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class UsersService {
     private final UsersRepositiry repositiry;
@@ -21,6 +23,10 @@ public class UsersService {
         Users user = repositiry.findById(id).orElseThrow(UsernameNotFound::new);
 
         return user;
+    }
+
+    public List<Users> findAllUsers() {
+        return repositiry.findAll().;
     }
 
     public void updateUser(Integer id, Users user) {
