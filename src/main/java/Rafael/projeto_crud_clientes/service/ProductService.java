@@ -57,7 +57,6 @@ public class ProductService {
         return List.of();
     }
 
-
     public void deleteById(Integer id) {
         Products product = repository.findAll().get(id);
 

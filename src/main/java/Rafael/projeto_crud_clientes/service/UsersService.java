@@ -26,7 +26,7 @@ public class UsersService {
     }
 
     public List<Users> findAllUsers() {
-        return repositiry.findAll().;
+        return repositiry.findAll();
     }
 
     public void updateUser(Integer id, Users user) {

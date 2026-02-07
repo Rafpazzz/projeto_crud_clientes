@@ -53,6 +53,27 @@ public class Users implements UserDetails {
         else return List.of(new SimpleGrantedAuthority("ROLE_USER"));
     }
 
+//    @Override
+//    public Collection<? extends GrantedAuthority> getAuthorities() {
+//        return switch (this.role) {
+//            case ADMIN -> List.of(
+//                    new SimpleGrantedAuthority("ROLE_ADMIN"),
+//                    new SimpleGrantedAuthority("ROLE_USER"),
+//                    new SimpleGrantedAuthority("ROLE_RECEPCIONISTA"),
+//                    new SimpleGrantedAuthority("ROLE_CAMAREIRA")
+//            );
+//            case RECEPCIONISTA -> List.of(
+//                    new SimpleGrantedAuthority("ROLE_RECEPCIONISTA"),
+//                    new SimpleGrantedAuthority("ROLE_USER") // Recepcionista também é um usuário comum
+//            );
+//            case CAMAREIRA -> List.of(
+//                    new SimpleGrantedAuthority("ROLE_CAMAREIRA"),
+//                    new SimpleGrantedAuthority("ROLE_USER") // Camareira também é um usuário comum
+//            );
+//            default -> List.of(new SimpleGrantedAuthority("ROLE_USER"));
+//        };
+//    }
+
     @Override
     public boolean isAccountNonExpired() {
         return UserDetails.super.isAccountNonExpired();

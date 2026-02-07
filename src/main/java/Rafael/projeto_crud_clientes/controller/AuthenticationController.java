@@ -56,8 +56,4 @@ public class AuthenticationController {
         return ResponseEntity.ok().build();
     }
 
-//    @PostMapping("/create")
-//    public ResponseEntity create(@RequestBody @Valid CreateDTO data) {
-//
-//    }
 }
