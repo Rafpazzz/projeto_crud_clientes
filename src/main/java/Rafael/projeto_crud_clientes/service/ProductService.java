@@ -24,6 +24,10 @@ public class ProductService {
         repository.saveAndFlush(product);
     }
 
+    public void saveListProduct(List<Products> list) {
+        repository.saveAllAndFlush(list);
+    }
+
     public Products findbyId(Integer id) {
         return repository.findById(id).orElseThrow(IdNotFound::new);
     }

@@ -1,4 +1,4 @@
-package Rafael.projeto_crud_clientes.controller;
+package Rafael.projeto_crud_clientes.controller.User;
 
 
 import Rafael.projeto_crud_clientes.entity.User.AuthenticationDTO;
@@ -8,7 +8,6 @@ import Rafael.projeto_crud_clientes.entity.User.Users;
 import Rafael.projeto_crud_clientes.infra.security.TokenService;
 import Rafael.projeto_crud_clientes.repository.UsersRepositiry;
 import jakarta.validation.Valid;
-import org.apache.coyote.Response;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;

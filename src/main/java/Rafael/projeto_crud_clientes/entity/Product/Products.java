@@ -26,22 +26,22 @@ public class Products {
     @Column(name="marca", nullable = false)
     private String marca;
 
+    @Column(name="price", nullable = false)
+    private Double price;
+
     @Column(name = "socket", nullable = false)
     private String socket;
 
-    @Column(name = "cores_processer")
+    @Column(name = "cores_processer", columnDefinition = "integer default 0")
     private Integer cores_processer;
 
-    @Column(name = "threads")
+    @Column(name = "threads", columnDefinition = "integer default 0")
     private Integer threads;
 
+    @Column(name="image_text")
+    private String image_text;
 
-    public Products(String name, TypesProducts type, String marca, String socket, Integer cores_processer, Integer threads) {
-        this.name =name;
-        this.type = type;
-        this.cores_processer = cores_processer;
-        this.marca = marca;
-        this.socket = socket;
-        this.threads = threads;
-    }
+    @Column(name = "isDisponivel", columnDefinition = "boolean default false")
+    private Boolean isDisponivel;
+
 }

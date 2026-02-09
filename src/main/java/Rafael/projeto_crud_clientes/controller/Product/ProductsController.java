@@ -1,8 +1,7 @@
-package Rafael.projeto_crud_clientes.controller;
+package Rafael.projeto_crud_clientes.controller.Product;
 
 import Rafael.projeto_crud_clientes.entity.Product.Products;
 import Rafael.projeto_crud_clientes.service.ProductService;
-import org.apache.coyote.Response;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -21,6 +20,12 @@ public class ProductsController {
     @PostMapping("/saveProduct")
     public ResponseEntity<Void> saveProduct(@RequestBody Products product) {
         service.saveProduct(product);
+        return ResponseEntity.ok().build();
+    }
+
+    @PostMapping("/saveListProduct")
+    public ResponseEntity<Void> saveListProduct(@RequestBody List<Products> list) {
+        service.saveListProduct(list);
         return ResponseEntity.ok().build();
     }
 

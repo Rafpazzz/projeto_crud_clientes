@@ -1,4 +1,4 @@
-package Rafael.projeto_crud_clientes.controller;
+package Rafael.projeto_crud_clientes.controller.User;
 
 import Rafael.projeto_crud_clientes.entity.User.Users;
 import Rafael.projeto_crud_clientes.service.UsersService;

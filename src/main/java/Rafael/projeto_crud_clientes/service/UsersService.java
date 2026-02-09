@@ -1,6 +1,7 @@
 package Rafael.projeto_crud_clientes.service;
 
 import Rafael.projeto_crud_clientes.entity.User.Users;
+import Rafael.projeto_crud_clientes.exceptions.IdNotFound;
 import Rafael.projeto_crud_clientes.exceptions.UsernameNotFound;
 import Rafael.projeto_crud_clientes.repository.UsersRepositiry;
 import org.springframework.stereotype.Service;
@@ -20,7 +21,7 @@ public class UsersService {
     }
 
     public Users findById(Integer id) {
-        Users user = repositiry.findById(id).orElseThrow(UsernameNotFound::new);
+        Users user = repositiry.findById(id).orElseThrow(IdNotFound::new);
 
         return user;
     }
