@@ -13,9 +13,9 @@ public interface TicketRepository extends JpaRepository<Ticket, Integer> {
 
     public List<Ticket> findByUserEmail(String email);
 
-    public List<Ticket> findByProductName(String nameProduct);
+    public List<Ticket> findByProdutoName(String nameProduct);
 
-    public List<Ticket> findByProductMarca(String marca);
+    public List<Ticket> findByProdutoMarca(String marca);
 
     @Transactional
     public void deleteById(Integer id);

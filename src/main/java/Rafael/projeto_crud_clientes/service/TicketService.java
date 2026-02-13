@@ -8,6 +8,7 @@ import Rafael.projeto_crud_clientes.repository.TicketRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -47,11 +48,11 @@ public class TicketService {
     }
 
      public List<Ticket> findByProdutoName(String name) {
-        return  repository.findByProductName(name);
+        return  repository.findByProdutoName(name);
      }
 
-     public List<Ticket> findByProductmarca(String marca) {
-        return repository.findByProductMarca(marca);
+     public List<Ticket> findByProdutoMarca(String marca) {
+        return repository.findByProdutoMarca(marca);
      }
 
      public void deleteById(Integer id) {

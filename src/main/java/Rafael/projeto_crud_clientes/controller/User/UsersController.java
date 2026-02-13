@@ -25,8 +25,8 @@ public class UsersController {
         return ResponseEntity.ok().build();
     }
 
-    @GetMapping("/find-User-id")
-    public ResponseEntity<Users> findUserId(@RequestParam Integer id) {
+    @GetMapping("/{id}")
+    public ResponseEntity<Users> findUserId(@PathVariable Integer id) {
         return ResponseEntity.ok(usersService.findById(id));
     }
 
@@ -35,14 +35,14 @@ public class UsersController {
         return ResponseEntity.ok(usersService.findAllUsers());
     }
 
-    @PutMapping("/update-user")
-    public ResponseEntity<Void> upadateUser(@RequestParam Integer id, @RequestBody Users user) {
+    @PutMapping("/update-user/{id}")
+    public ResponseEntity<Void> upadateUser(@PathVariable Integer id, @RequestBody Users user) {
         usersService.updateUser(id, user);
         return ResponseEntity.ok().build();
     }
 
-    @DeleteMapping("/delete-user")
-    public ResponseEntity<Void> deleteById(@RequestParam Integer id) {
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> deleteById(@PathVariable Integer id) {
         usersService.deleteUserById(id);
         return ResponseEntity.ok().build();
     }

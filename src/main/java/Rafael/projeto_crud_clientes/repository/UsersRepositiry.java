@@ -10,9 +10,11 @@ import java.util.Optional;
 public interface UsersRepositiry extends JpaRepository<Users, Integer> {
 
     @Transactional
-    void deleteById(long id);
+    void deleteById(Integer id);
 
     Optional<Users> findById(long id);
 
     UserDetails findByEmail(String email);
+
+    boolean existsByEmail(String email);
 }

@@ -33,4 +33,9 @@ public class GlobalExeptionHandler<T> {
     private ResponseEntity<String> handlerTypeNotFound(TypeNotFound typeNotFound) {
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(typeNotFound.getMessage());
     }
+
+    @ExceptionHandler(EmailExistente.class)
+    private  ResponseEntity<String> handlerEmailExistente(EmailExistente emailExistente) {
+        return ResponseEntity.status(HttpStatus.CONFLICT).body(emailExistente.getMessage());
+    }
 }
