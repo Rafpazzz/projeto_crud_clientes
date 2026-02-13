@@ -2,6 +2,7 @@ package Rafael.projeto_crud_clientes.entity.User;
 
 import jakarta.persistence.*;
 import lombok.*;
+import org.hibernate.validator.constraints.br.CPF;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -27,6 +28,10 @@ public class Users implements UserDetails {
     @Column(name = "username", nullable = false)
     private String username;
 
+    @CPF
+    @Column(name = "cpf", nullable = false)
+    private String cpf;
+
     @Column(name="email", unique = true, nullable = false)
     private String email;
 
@@ -46,6 +51,9 @@ public class Users implements UserDetails {
         this.role = role;
     }
 
+    public void formatCpf(String cpf) {
+        this.cpf = cpf.replaceAll("\\D+", "");
+    }
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {

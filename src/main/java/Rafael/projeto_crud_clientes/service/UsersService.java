@@ -1,9 +1,7 @@
 package Rafael.projeto_crud_clientes.service;
 
 import Rafael.projeto_crud_clientes.entity.User.Users;
-import Rafael.projeto_crud_clientes.exceptions.EmailExistente;
-import Rafael.projeto_crud_clientes.exceptions.IdNotFound;
-import Rafael.projeto_crud_clientes.exceptions.UsernameNotFound;
+import Rafael.projeto_crud_clientes.exceptions.*;
 import Rafael.projeto_crud_clientes.repository.UsersRepositiry;
 import org.springframework.stereotype.Service;
 
@@ -18,6 +16,7 @@ public class UsersService {
     }
 
     public void saveUser(Users user) {
+        user.formatCpf(user.getCpf());
         repositiry.saveAndFlush(user);
     }
 
@@ -31,11 +30,19 @@ public class UsersService {
         return repositiry.findAll();
     }
 
+    public Users findByCpf(String cpf) {
+        return repositiry.findByCpf(cpf).orElseThrow(CpfNotFound::new);
+    }
+
     public void updateUser(Integer id, Users user) {
         Users userTemp = repositiry.findById(id).orElseThrow(UsernameNotFound::new);
 
         if(repositiry.existsByEmail(user.getEmail())) {
-            throw new EmailExistente("O Email: " + user.getEmail()+ " exite no banco");
+            throw new EmailExistente("O Email: " + user.getEmail()+ " pertence a um outro usuario");
+        }
+
+        if(repositiry.existsBycpf(user.getCpf())) {
+            throw new CpfExistente("O CPF "+ user.getCpf() + " pertence a um outro usuario");
         }
 
         Users userUpdate = Users.builder()
@@ -44,7 +51,8 @@ public class UsersService {
                 .age(user.getAge() != null ? user.getAge() : userTemp.getAge())
                 .id(userTemp.getId())
                 .password(user.getPassword() != null ? user.getPassword() : userTemp.getPassword())
-                .role(user.getRole() != null ? user.getRole() : userTemp.getRole()).build();
+                .role(user.getRole() != null ? user.getRole() : userTemp.getRole())
+                .cpf(user.getCpf() != null ? user.getCpf() : userTemp.getCpf()).build();
 
         repositiry.saveAndFlush(userUpdate);
     }

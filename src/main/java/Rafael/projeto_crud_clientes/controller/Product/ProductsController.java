@@ -36,8 +36,8 @@ public class ProductsController {
         return ResponseEntity.ok().build();
     }
 
-    @GetMapping("/findById")
-    public ResponseEntity<Products> findById(@RequestParam Integer id) {
+    @GetMapping("/findById/{id}")
+    public ResponseEntity<Products> findById(@PathVariable Integer id) {
         return ResponseEntity.ok(service.findbyId(id));
     }
 
@@ -51,8 +51,8 @@ public class ProductsController {
         return ResponseEntity.ok(service.findByName(name));
     }
 
-    @DeleteMapping("/deleteById")
-    public ResponseEntity<Void> deleteById (@RequestParam Integer id) {
+    @DeleteMapping("/deleteById/{id}")
+    public ResponseEntity<Void> deleteById (@PathVariable Integer id) {
         service.deleteById(id);
 
         return ResponseEntity.ok().build();

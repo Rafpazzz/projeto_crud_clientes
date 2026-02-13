@@ -25,7 +25,7 @@ public class UsersController {
         return ResponseEntity.ok().build();
     }
 
-    @GetMapping("/{id}")
+    @GetMapping("/findById/{id}")
     public ResponseEntity<Users> findUserId(@PathVariable Integer id) {
         return ResponseEntity.ok(usersService.findById(id));
     }
@@ -41,7 +41,7 @@ public class UsersController {
         return ResponseEntity.ok().build();
     }
 
-    @DeleteMapping("/{id}")
+    @DeleteMapping("/deleteById/{id}")
     public ResponseEntity<Void> deleteById(@PathVariable Integer id) {
         usersService.deleteUserById(id);
         return ResponseEntity.ok().build();

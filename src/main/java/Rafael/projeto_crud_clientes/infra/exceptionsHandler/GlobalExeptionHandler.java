@@ -1,6 +1,8 @@
 package Rafael.projeto_crud_clientes.infra.exceptionsHandler;
 
 import Rafael.projeto_crud_clientes.exceptions.*;
+import jakarta.validation.executable.ValidateOnExecution;
+import org.apache.coyote.Response;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
@@ -37,5 +39,15 @@ public class GlobalExeptionHandler<T> {
     @ExceptionHandler(EmailExistente.class)
     private  ResponseEntity<String> handlerEmailExistente(EmailExistente emailExistente) {
         return ResponseEntity.status(HttpStatus.CONFLICT).body(emailExistente.getMessage());
+    }
+
+    @ExceptionHandler(CpfNotFound.class)
+    private ResponseEntity<String> handlerCpfNotFound(CpfNotFound cpfNotFound) {
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(cpfNotFound.getMessage());
+    }
+
+    @ExceptionHandler(CpfExistente.class)
+    private ResponseEntity<String> handlerCpfExistente(CpfExistente cpfExistente) {
+        return  ResponseEntity.status(HttpStatus.CONFLICT).body(cpfExistente.getMessage());
     }
 }
