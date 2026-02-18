@@ -9,6 +9,7 @@ import org.hibernate.validator.constraints.CodePointLength;
 @EqualsAndHashCode(of = "id")
 @AllArgsConstructor
 @NoArgsConstructor
+@Builder
 
 @Entity
 @Table(name = "products")

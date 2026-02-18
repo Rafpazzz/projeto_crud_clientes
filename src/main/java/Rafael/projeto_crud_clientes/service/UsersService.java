@@ -3,6 +3,8 @@ package Rafael.projeto_crud_clientes.service;
 import Rafael.projeto_crud_clientes.entity.User.Users;
 import Rafael.projeto_crud_clientes.exceptions.*;
 import Rafael.projeto_crud_clientes.repository.UsersRepositiry;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -10,6 +12,9 @@ import java.util.List;
 @Service
 public class UsersService {
     private final UsersRepositiry repositiry;
+
+    @Autowired
+    private PasswordEncoder passwordEncoder;
 
     public UsersService(UsersRepositiry repositiry) {
         this.repositiry = repositiry;
@@ -35,26 +40,40 @@ public class UsersService {
     }
 
     public void updateUser(Integer id, Users user) {
-        Users userTemp = repositiry.findById(id).orElseThrow(UsernameNotFound::new);
+        Users existingUser = repositiry.findById(id).orElseThrow(UsernameNotFound::new);
 
-        if(repositiry.existsByEmail(user.getEmail())) {
-            throw new EmailExistente("O Email: " + user.getEmail()+ " pertence a um outro usuario");
+        if(user.getEmail() != null && !user.getEmail().equals(existingUser.getEmail())) {
+            if(repositiry.existsByEmail(user.getEmail())){
+                throw new EmailExistente("O Email: " + user.getEmail()+ " pertence a um outro usuario");
+            }
+
+            existingUser.setEmail(user.getEmail());
         }
 
-        if(repositiry.existsBycpf(user.getCpf())) {
-            throw new CpfExistente("O CPF "+ user.getCpf() + " pertence a um outro usuario");
+        if(user.getCpf() != null && !user.getCpf().equals(existingUser.getCpf())) {
+            if(repositiry.existsBycpf(user.getCpf())) {
+                throw new CpfExistente("O CPF "+ user.getCpf() + " pertence a um outro usuario");
+            }
+
+            existingUser.setCpf(user.getCpf());
         }
 
-        Users userUpdate = Users.builder()
-                .username(user.getUsername() != null ? user.getUsername() : userTemp.getUsername())
-                .email(user.getEmail() != null ? user.getEmail() : userTemp.getEmail())
-                .age(user.getAge() != null ? user.getAge() : userTemp.getAge())
-                .id(userTemp.getId())
-                .password(user.getPassword() != null ? user.getPassword() : userTemp.getPassword())
-                .role(user.getRole() != null ? user.getRole() : userTemp.getRole())
-                .cpf(user.getCpf() != null ? user.getCpf() : userTemp.getCpf()).build();
+        if (user.getUsername() != null) {
+            existingUser.setUsername(user.getUsername());
+        }
+        if (user.getAge() != null) {
+            existingUser.setAge(user.getAge());
+        }
+        if (user.getRole() != null) {
+            existingUser.setRole(user.getRole());
+        }
+        if (user.getPassword() != null && !user.getPassword().isBlank()) {
+            //Criptografa a nova senha que veio no JSON
+            String senhaCriptografada = passwordEncoder.encode(user.getPassword());
+            existingUser.setPassword(senhaCriptografada);
+        }
 
-        repositiry.saveAndFlush(userUpdate);
+        repositiry.save(existingUser);
     }
 
     public void deleteUserById(Integer id) {

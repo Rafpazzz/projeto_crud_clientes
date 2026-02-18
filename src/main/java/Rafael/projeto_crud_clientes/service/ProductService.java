@@ -17,7 +17,7 @@ public class ProductService {
 
     private final ProductsRepository repository;
 
-    public ProductService (ProductsRepository repository) {
+    public ProductService(ProductsRepository repository) {
         this.repository = repository;
     }
 
@@ -39,7 +39,7 @@ public class ProductService {
         } catch (TypeNotFound e) {
             e.getMessage();
         }
-            return List.of();
+        return List.of();
     }
 
     public List<Products> findByMarca(String marca) {
@@ -62,12 +62,45 @@ public class ProductService {
         return List.of();
     }
 
-    public void deleteById(Integer id) {
-        Products product = repository.findAll().get(id);
+    public void updateProduct(Integer id, Products product) {
+        Products existingProduct = repository.findById(id).orElseThrow(IdNotFound::new);
 
-        if(product == null) {
+        // 2. Atualiza apenas os campos que NÃO vieram nulos
+        if (product.getName() != null) {
+            existingProduct.setName(product.getName());
+        }
+        if (product.getType() != null) {
+            existingProduct.setType(product.getType());
+        }
+        if (product.getMarca() != null) {
+            existingProduct.setMarca(product.getMarca());
+        }
+        if (product.getPrice() != null) {
+            existingProduct.setPrice(product.getPrice());
+        }
+        if (product.getSocket() != null) {
+            existingProduct.setSocket(product.getSocket());
+        }
+        if (product.getCores_processer() != null) {
+            existingProduct.setCores_processer(product.getCores_processer());
+        }
+        if (product.getThreads() != null) {
+            existingProduct.setThreads(product.getThreads());
+        }
+        if (product.getImage_text() != null) {
+            existingProduct.setImage_text(product.getImage_text());
+        }
+
+        repository.save(existingProduct);
+
+    }
+
+    public void deleteById(Integer id) {
+        Products product = repository.findById(id).orElseThrow(IdNotFound::new);
+
+        if (product == null) {
             new IdNotFound().getMessage();
-        }else {
+        } else {
             repository.deleteById(id);
         }
     }

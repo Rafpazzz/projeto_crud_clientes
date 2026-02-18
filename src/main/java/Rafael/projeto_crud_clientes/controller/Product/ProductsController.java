@@ -50,6 +50,13 @@ public class ProductsController {
         return ResponseEntity.ok(service.findByName(name));
     }
 
+    @PutMapping("/updateProduct/{id}")
+    public ResponseEntity<Void> updateProduct(@PathVariable Integer id, @RequestBody Products product) {
+        service.updateProduct(id, product);
+
+        return ResponseEntity.ok().build();
+    }
+
     @DeleteMapping("/deleteById/{id}")
     public ResponseEntity<Void> deleteById (@PathVariable Integer id) {
         service.deleteById(id);
