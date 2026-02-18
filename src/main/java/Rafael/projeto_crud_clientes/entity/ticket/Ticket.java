@@ -33,4 +33,15 @@ public class Ticket {
 
     @Column(name = "data_compa")
     private LocalDate data_compra;
+
+    @Override
+    public String toString() {
+        return "Ticket{" +
+                "id=" + id +
+                ", produto=" + produto +
+                ", email=" + user.getEmail() +
+                ", cpf=" +user.getCpf() +
+                ", data_compra=" + data_compra +
+                '}';
+    }
 }

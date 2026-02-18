@@ -1,12 +1,15 @@
 package Rafael.projeto_crud_clientes.service;
 
 import Rafael.projeto_crud_clientes.entity.Product.Products;
+import Rafael.projeto_crud_clientes.entity.User.Users;
 import Rafael.projeto_crud_clientes.entity.ticket.Ticket;
 import Rafael.projeto_crud_clientes.exceptions.IdNotFound;
 import Rafael.projeto_crud_clientes.repository.ProductsRepository;
 import Rafael.projeto_crud_clientes.repository.TicketRepository;
+import Rafael.projeto_crud_clientes.repository.UsersRepositiry;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -16,6 +19,9 @@ public class TicketService {
 
     @Autowired
     ProductsRepository productsRepository;
+
+    @Autowired
+    UsersRepositiry usersRepositiry;
 
     private final TicketRepository repository;
 
@@ -28,7 +34,7 @@ public class TicketService {
 
         Products produto_banco = productsRepository.findById(id_produto).orElseThrow(IdNotFound::new);
 
-        if(!produto_banco.getIsDisponivel()) throw new RuntimeException("Produto indisponível no estoque!");
+        if (!produto_banco.getIsDisponivel()) throw new RuntimeException("Produto indisponível no estoque!");
 
         ticket.setProduto(produto_banco);
         ticket.setData_compra(LocalDate.now());
@@ -37,9 +43,9 @@ public class TicketService {
     }
 
     public Ticket getTicketById(Integer id) {
-         Ticket ticket = repository.findById(id).orElseThrow(IdNotFound::new);
+        Ticket ticket = repository.findById(id).orElseThrow(IdNotFound::new);
 
-         return ticket;
+        return ticket;
     }
 
 
@@ -47,15 +53,24 @@ public class TicketService {
         return repository.findByUserEmail(email);
     }
 
-     public List<Ticket> findByProdutoName(String name) {
-        return  repository.findByProdutoName(name);
-     }
+    public List<Ticket> findByProdutoName(String name) {
+        return repository.findByProdutoName(name);
+    }
 
-     public List<Ticket> findByProdutoMarca(String marca) {
+    public List<Ticket> findByProdutoMarca(String marca) {
         return repository.findByProdutoMarca(marca);
-     }
+    }
 
-     public void deleteById(Integer id) {
+    public void deleteById(Integer id) {
         repository.deleteById(id);
-     }
+    }
+
+
+    public String processarTicket(Integer id_ticket) {
+        Ticket ticket = repository.findById(id_ticket).orElseThrow(IdNotFound::new);
+//        Users user = usersRepositiry.findById(id_client).orElseThrow(IdNotFound::new);
+
+        return ticket.toString();
+
+    }
 }
