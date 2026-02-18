@@ -2,6 +2,7 @@ package Rafael.projeto_crud_clientes.service;
 
 
 import Rafael.projeto_crud_clientes.entity.Product.Products;
+import Rafael.projeto_crud_clientes.entity.Product.TypesProducts;
 import Rafael.projeto_crud_clientes.exceptions.IdNotFound;
 import Rafael.projeto_crud_clientes.exceptions.MarcaNotFound;
 import Rafael.projeto_crud_clientes.exceptions.NameProductNotFound;
@@ -32,7 +33,7 @@ public class ProductService {
         return repository.findById(id).orElseThrow(IdNotFound::new);
     }
 
-    public List<Products> findByType(String type) {
+    public List<Products> findByType(TypesProducts type) {
         try {
             return repository.findByType(type).stream().toList();
         } catch (TypeNotFound e) {

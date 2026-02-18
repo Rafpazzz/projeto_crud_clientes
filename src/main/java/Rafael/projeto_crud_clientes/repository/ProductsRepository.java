@@ -1,9 +1,11 @@
 package Rafael.projeto_crud_clientes.repository;
 
 import Rafael.projeto_crud_clientes.entity.Product.Products;
+import Rafael.projeto_crud_clientes.entity.Product.TypesProducts;
 import jakarta.transaction.Transactional;
 import org.springframework.data.jpa.repository.JpaRepository;
 
+import java.util.List;
 import java.util.Optional;
 
 public interface ProductsRepository extends JpaRepository<Products, Integer> {
@@ -12,9 +14,9 @@ public interface ProductsRepository extends JpaRepository<Products, Integer> {
 
     Optional<Products> findById(Integer id);
 
-    Optional<Products> findByType(String type);
+    List<Products> findByType(TypesProducts type);
 
-    Optional<Products> findByMarca(String marca);
+    List<Products> findByMarca(String marca);
 
-    Optional<Products> findByName(String name);
+    List<Products> findByName(String name);
 }

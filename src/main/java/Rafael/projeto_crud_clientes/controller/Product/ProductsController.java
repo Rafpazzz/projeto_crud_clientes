@@ -1,6 +1,7 @@
 package Rafael.projeto_crud_clientes.controller.Product;
 
 import Rafael.projeto_crud_clientes.entity.Product.Products;
+import Rafael.projeto_crud_clientes.entity.Product.TypesProducts;
 import Rafael.projeto_crud_clientes.service.ProductService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -30,10 +31,8 @@ public class ProductsController {
     }
 
     @GetMapping("/findByType")
-    public ResponseEntity<Void> findByType(@RequestParam String type) {
-        service.findByType(type);
-
-        return ResponseEntity.ok().build();
+    public ResponseEntity<List<Products>> findByType(@RequestParam TypesProducts type) {
+        return ResponseEntity.ok(service.findByType(type));
     }
 
     @GetMapping("/findById/{id}")
