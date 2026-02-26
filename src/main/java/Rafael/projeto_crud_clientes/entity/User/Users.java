@@ -41,14 +41,15 @@ public class Users implements UserDetails {
     @Column(name = "age")
     private Integer age;
 
-    @Column(name = "role", nullable = false)
+    @Column(name = "role", nullable = false, columnDefinition = "interger default 1")
     private UserRole role;
 
-    public Users (String username,String email, String password, UserRole role) {
+    public Users (String username,String email, String password, UserRole role, String cpf) {
         this.username = username;
         this.email = email;
         this.password = password;
         this.role = role;
+        this.cpf = cpf;
     }
 
     public void formatCpf(String cpf) {
