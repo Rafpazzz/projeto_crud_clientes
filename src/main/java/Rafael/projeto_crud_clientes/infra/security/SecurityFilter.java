@@ -1,6 +1,6 @@
 package Rafael.projeto_crud_clientes.infra.security;
 
-import Rafael.projeto_crud_clientes.repository.UsersRepositiry;
+import Rafael.projeto_crud_clientes.repository.UsersRepository;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
@@ -21,14 +21,14 @@ public class SecurityFilter extends OncePerRequestFilter {
     TokenService tokenService;
 
     @Autowired
-    UsersRepositiry usersRepositiry;
+    UsersRepository usersRepository;
 
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
         var token = this.recoverToken(request);
         if(token != null) {
             var subject = tokenService.validateToken(token);
-            UserDetails user = usersRepositiry.findByEmail(subject);
+            UserDetails user = usersRepository.findByEmail(subject);
             if(user != null ) {
                 var authentication = new UsernamePasswordAuthenticationToken(user, null, user.getAuthorities());
                 SecurityContextHolder.getContext().setAuthentication(authentication);

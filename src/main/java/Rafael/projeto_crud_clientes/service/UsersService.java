@@ -2,7 +2,7 @@ package Rafael.projeto_crud_clientes.service;
 
 import Rafael.projeto_crud_clientes.entity.User.Users;
 import Rafael.projeto_crud_clientes.exceptions.*;
-import Rafael.projeto_crud_clientes.repository.UsersRepositiry;
+import Rafael.projeto_crud_clientes.repository.UsersRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -11,12 +11,12 @@ import java.util.List;
 
 @Service
 public class UsersService {
-    private final UsersRepositiry repositiry;
+    private final UsersRepository repositiry;
 
     @Autowired
     private PasswordEncoder passwordEncoder;
 
-    public UsersService(UsersRepositiry repositiry) {
+    public UsersService(UsersRepository repositiry) {
         this.repositiry = repositiry;
     }
 

@@ -31,17 +31,13 @@ public class Ticket {
     @JoinColumn(name = "user_id")
     private Users user;
 
-    @Column(name = "data_compa")
-    private LocalDate data_compra;
+    @Column(name = "data_compra")
+    private LocalDate dataCompra;
 
-    @Override
-    public String toString() {
-        return "Ticket{" +
-                "id=" + id +
-                ", produto=" + produto +
-                ", email=" + user.getEmail() +
-                ", cpf=" +user.getCpf() +
-                ", data_compra=" + data_compra +
-                '}';
-    }
+    @Enumerated(EnumType.STRING)
+    @Column(name = "status_pagamento")
+    private StatusPagamento statusPagamento = StatusPagamento.PENDENTE;
+
+    @Column(name = "payment_id")
+    private Long paymentId;
 }

@@ -1,7 +1,7 @@
 package Rafael.projeto_crud_clientes.service;
 
 
-import Rafael.projeto_crud_clientes.repository.UsersRepositiry;
+import Rafael.projeto_crud_clientes.repository.UsersRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -12,7 +12,7 @@ import org.springframework.stereotype.Service;
 public class AuthorizationService implements UserDetailsService {
 
     @Autowired
-    UsersRepositiry repositiry;
+    UsersRepository repositiry;
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {

@@ -6,7 +6,7 @@ import Rafael.projeto_crud_clientes.entity.User.LoginResposeDTO;
 import Rafael.projeto_crud_clientes.entity.User.RegisterDTO;
 import Rafael.projeto_crud_clientes.entity.User.Users;
 import Rafael.projeto_crud_clientes.infra.security.TokenService;
-import Rafael.projeto_crud_clientes.repository.UsersRepositiry;
+import Rafael.projeto_crud_clientes.repository.UsersRepository;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -27,7 +27,7 @@ public class AuthenticationController {
     private AuthenticationManager authenticationManager;
 
     @Autowired
-    private UsersRepositiry repositiry;
+    private UsersRepository repositiry;
 
     @Autowired
     private TokenService tokenService;

@@ -1,43 +1,41 @@
 package Rafael.projeto_crud_clientes.service;
 
 import Rafael.projeto_crud_clientes.entity.Product.Products;
-import Rafael.projeto_crud_clientes.entity.User.Users;
 import Rafael.projeto_crud_clientes.entity.ticket.Ticket;
+import Rafael.projeto_crud_clientes.entity.ticket.TicketResponseDTO;
 import Rafael.projeto_crud_clientes.exceptions.IdNotFound;
 import Rafael.projeto_crud_clientes.repository.ProductsRepository;
 import Rafael.projeto_crud_clientes.repository.TicketRepository;
-import Rafael.projeto_crud_clientes.repository.UsersRepositiry;
-import org.springframework.beans.factory.annotation.Autowired;
+import Rafael.projeto_crud_clientes.repository.UsersRepository;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.List;
 
 @Service
 public class TicketService {
 
-    @Autowired
-    ProductsRepository productsRepository;
+    private final ProductsRepository productsRepository;
 
-    @Autowired
-    UsersRepositiry usersRepositiry;
+    private final UsersRepository usersRepository;
 
     private final TicketRepository repository;
 
-    public TicketService(TicketRepository repository) {
+    public TicketService(TicketRepository repository, ProductsRepository productsRepository, UsersRepository usersRepository) {
         this.repository = repository;
+        this.productsRepository = productsRepository;
+        this.usersRepository = usersRepository;
     }
 
     public void saveTicket(Ticket ticket) {
-        Integer id_produto = ticket.getProduto().getId();
+        Integer idProduto = ticket.getProduto().getId();
 
-        Products produto_banco = productsRepository.findById(id_produto).orElseThrow(IdNotFound::new);
+        Products produtoBanco = productsRepository.findById(idProduto).orElseThrow(IdNotFound::new);
 
-        if (!produto_banco.getIsDisponivel()) throw new RuntimeException("Produto indisponível no estoque!");
+        if (!produtoBanco.getIsDisponivel()) throw new RuntimeException("Produto indisponível no estoque!");
 
-        ticket.setProduto(produto_banco);
-        ticket.setData_compra(LocalDate.now());
+        ticket.setProduto(produtoBanco);
+        ticket.setDataCompra(LocalDate.now());
 
         repository.saveAndFlush(ticket);
     }
@@ -66,11 +64,19 @@ public class TicketService {
     }
 
 
-    public String processarTicket(Integer id_ticket) {
-        Ticket ticket = repository.findById(id_ticket).orElseThrow(IdNotFound::new);
-//        Users user = usersRepositiry.findById(id_client).orElseThrow(IdNotFound::new);
+    public TicketResponseDTO processarTicket(Integer id_ticket) {
+        // Serve para retornar o ticket de forma mais limpa
 
-        return ticket.toString();
+        Ticket ticket = repository.findById(id_ticket).orElseThrow(IdNotFound::new);
+
+        return new TicketResponseDTO(
+                ticket.getId(),
+                ticket.getDataCompra(),
+                ticket.getProduto().getName(),
+                ticket.getProduto().getMarca(),
+                ticket.getUser().getEmail(),
+                ticket.getUser().getCpf()
+        );
 
     }
 }

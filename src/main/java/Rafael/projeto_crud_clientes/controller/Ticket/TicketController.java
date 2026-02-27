@@ -1,6 +1,7 @@
 package Rafael.projeto_crud_clientes.controller.Ticket;
 
 import Rafael.projeto_crud_clientes.entity.ticket.Ticket;
+import Rafael.projeto_crud_clientes.entity.ticket.TicketResponseDTO;
 import Rafael.projeto_crud_clientes.service.TicketService;
 import lombok.AllArgsConstructor;
 import org.apache.coyote.Response;
@@ -11,18 +12,19 @@ import java.util.List;
 
 @RestController
 @AllArgsConstructor
+@RequestMapping("/ticket")
 public class TicketController {
 
     private TicketService service;
 
-    @GetMapping("/save")
+    @PostMapping("/save")
     public ResponseEntity<Void> saveTicket(@RequestBody Ticket ticket) {
         service.saveTicket(ticket);
         return ResponseEntity.ok().build();
     }
 
     @GetMapping("/processarTicket/{id_ticket}")
-    public ResponseEntity<String> processarTiket(@PathVariable Integer id_ticket) {
+    public ResponseEntity<TicketResponseDTO> processarTiket(@PathVariable Integer id_ticket) {
         return ResponseEntity.ok(service.processarTicket(id_ticket));
     }
 
@@ -32,7 +34,7 @@ public class TicketController {
     }
 
     @GetMapping("/findByEmail")
-    public ResponseEntity<List<Ticket>> findByEmail(@RequestBody String email) {
+    public ResponseEntity<List<Ticket>> findByEmail(@RequestParam String email) {
         return ResponseEntity.ok(service.findByEmail(email));
     }
 
