@@ -1,5 +1,6 @@
 package Rafael.projeto_crud_clientes.service;
 
+import Rafael.projeto_crud_clientes.entity.User.UserResponseDTO;
 import Rafael.projeto_crud_clientes.entity.User.Users;
 import Rafael.projeto_crud_clientes.exceptions.*;
 import Rafael.projeto_crud_clientes.repository.UsersRepository;
@@ -31,12 +32,10 @@ public class UsersService {
         return user;
     }
 
-    public List<Users> findAllUsers() {
-        return repositiry.findAll();
-    }
+    public UserResponseDTO findByCpf(String cpf) {
+        Users user = repositiry.findByCpf(cpf).orElseThrow(CpfNotFound::new);
 
-    public Users findByCpf(String cpf) {
-        return repositiry.findByCpf(cpf).orElseThrow(CpfNotFound::new);
+        return new UserResponseDTO(user.getUsername(),user.getEmail(), user.getCpf(), user.getAge());
     }
 
     public void updateUser(Integer id, Users user) {
