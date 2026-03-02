@@ -21,6 +21,7 @@ public class PaymentController {
 
     @GetMapping("/{id}/status")
     public ResponseEntity<StatusPagamento> consultStaus(@PathVariable Integer id) {
+        
         return ResponseEntity.ok(paymentService.consultarStatus(id));
     }
 }
