@@ -30,11 +30,6 @@ public class UsersController {
         return ResponseEntity.ok(usersService.findById(id));
     }
 
-    @GetMapping("/find_all_users")
-    public ResponseEntity<List<Users>> findAllUsers() {
-        return ResponseEntity.ok(usersService.findAllUsers());
-    }
-
     @PutMapping("/update-user/{id}")
     public ResponseEntity<Void> upadateUser(@PathVariable Integer id, @RequestBody Users user) {
         usersService.updateUser(id, user);
